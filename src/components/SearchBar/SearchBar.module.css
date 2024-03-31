@@ -1,0 +1,28 @@
+.headercontainer {
+  background-color: blue;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headercontainer > form {
+  position: relative;
+}
+
+.headercontainer > form > input {
+  width: 350px;
+  border: none;
+  outline: none;
+  padding: 5px 5px 5px 30px;
+}
+
+.headercontainer > form > button {
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  bottom: 0;
+  margin: auto;
+  background: none;
+  border: none;
+}

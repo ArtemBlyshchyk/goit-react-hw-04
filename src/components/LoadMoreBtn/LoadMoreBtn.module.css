@@ -1,0 +1,12 @@
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.buttonContainer > button {
+  background-color: blue;
+  color: white;
+  padding: 5px;
+  width: 120px;
+}
