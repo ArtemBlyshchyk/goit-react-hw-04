@@ -20,6 +20,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null); // State of chosen photo
+  const [showBtn, setShowBtn] = useState(false);
 
   useEffect(() => {
     if (query.length === 0) return;
@@ -27,6 +28,8 @@ function App() {
       try {
         setIsLoading(true);
         const data = await requestPhotos(query, page);
+        setShowBtn(data.total_pages > page);
+        console.log(data.total_pages);
         if (results === null) {
           setResults(data.results);
         } else {
@@ -69,7 +72,7 @@ function App() {
       {results && <ImageGallery results={results} openModal={openModal} />}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {isLoadMore && results.length !== 0 && (
+      {isLoadMore && results.length !== 0 && showBtn && (
         <LoadMoreBtn onSetMorePhotos={onSetMorePhotos} />
       )}
       {selectedImage && (
