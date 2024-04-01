@@ -29,7 +29,6 @@ function App() {
         setIsLoading(true);
         const data = await requestPhotos(query, page);
         setShowBtn(data.total_pages > page);
-        console.log(data.total_pages);
         if (results === null) {
           setResults(data.results);
         } else {
@@ -46,7 +45,11 @@ function App() {
   }, [query, page]);
 
   const onSetSearchQuery = (searchPhotos) => {
-    setQuery(searchPhotos);
+    if (searchPhotos === query) {
+      return;
+    } else {
+      setQuery(searchPhotos);
+    }
     //Remove previous quiry
     setResults([]);
   };
