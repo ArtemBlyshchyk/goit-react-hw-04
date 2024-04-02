@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import { useEffect } from "react";
 import { requestPhotos } from "./api/api";
@@ -21,6 +21,14 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null); // State of chosen photo
   const [showBtn, setShowBtn] = useState(false);
+  //Auto scroll
+  const listRef = useRef(null);
+  const scrollHeight = useRef(0);
+  useEffect(() => {
+    if (!listRef.current) return;
+    window.scroll({ behavior: "smooth", top: scrollHeight.current });
+    scrollHeight.current = listRef.current.clientHeight;
+  }, [results]);
 
   useEffect(() => {
     if (query.length === 0) return;
@@ -72,7 +80,9 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={onSetSearchQuery} />
-      {results && <ImageGallery results={results} openModal={openModal} />}
+      {results && (
+        <ImageGallery results={results} openModal={openModal} ref={listRef} />
+      )}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {isLoadMore && results.length !== 0 && showBtn && (
